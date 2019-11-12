@@ -4,7 +4,7 @@ export default function Nav () {
     return (
         <nav>
             <h3>Logo</h3>
-            <ul>
+            <ul id="NavBar">
                 <li>User Page</li>
             </ul>
         </nav>

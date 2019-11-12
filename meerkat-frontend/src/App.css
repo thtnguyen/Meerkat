@@ -30,7 +30,7 @@ nav {
   color: white;
 }
 
-.nav-links {
+li {
   width: 40%;
   display: flex;
   justify-content: space-around;
