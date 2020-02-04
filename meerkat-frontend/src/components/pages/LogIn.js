@@ -5,6 +5,6 @@ export default function LogIn() {
         <div>
             <h1>Login Page</h1>
         </div>
-    );
+    )
 }
 
