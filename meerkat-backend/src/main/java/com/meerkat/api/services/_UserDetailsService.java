@@ -3,12 +3,10 @@ package com.meerkat.api.services;
 import com.meerkat.api.dtos.UserDto;
 import com.meerkat.api.models.User;
 import com.meerkat.api.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.keygen.KeyGenerators;
-import org.springframework.security.crypto.keygen.StringKeyGenerator;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +14,7 @@ import java.util.UUID;
 
 @Service
 public class _UserDetailsService implements UserDetailsService {
+    @Autowired
     UserRepository userRepository;
 
     @Override
@@ -27,22 +26,16 @@ public class _UserDetailsService implements UserDetailsService {
         return convertFromModel(userToLoad);
     }
 
-    public UserDetails convertFromModel(User user) {
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getHashedPassword(), new ArrayList<>());
+    private UserDetails convertFromModel(User user) {
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
     }
 
     public User registerNewUser(UserDto userDto) {
         UUID id = UUID.randomUUID();
-
         String username = userDto.getUsername();
         String email = userDto.getEmail();
+        String password = userDto.getPassword();
 
-        StringKeyGenerator keyGen = KeyGenerators.string();
-        String salt = keyGen.generateKey();
-
-        String saltedPassword = userDto.getPassword() + salt;
-        String hashedPassword = new BCryptPasswordEncoder().encode(saltedPassword);
-
-        return new User(id, username, email, salt, hashedPassword);
+        return new User(id, username, email, password);
     }
 }
