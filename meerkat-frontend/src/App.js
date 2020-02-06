@@ -1,12 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './components/pages/Home';
-import LogIn from './components/pages/LogIn';
-import UserPage from './components/pages/UserPage';
-import Create from './components/pages/Create';
-import Register from './components/pages/Register'
+// import Home from './components/pages/Home';
+// import LogIn from './components/pages/LogIn';
+// import UserPage from './components/pages/UserPage';
+// import Create from './components/pages/Create';
+// import Register from './components/pages/Register';
 import Nav from './components/Nav';
 import './App.css';
+import { Home, LogIn, UserPage, Create, Register } from './components/index'
 
 function App() {
   return (
