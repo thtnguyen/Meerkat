@@ -20,11 +20,11 @@ export default function LogIn(){
                                 <input type="text" name="uName" placeholder="Username" ref={ register }/> 
                             </div>
                             <div className="col">  
-                                <input type="text" name="password" placeholder="Password" ref={ register({required: "Please Enter password", minLength: {value: 8, message:"Password too short" }}) }/> 
+                                <input type="password" name="password" placeholder="Password" ref={ register({required: "Please Enter password", minLength: {value: 8, message:"Password too short" }}) }/> 
+                                {errors.password && <p> {errors.password.message} </p>}
                             </div>
                         </div>
                     </div>
-                    {errors.password && alert(errors.password.message)}
                     <div>
                         <Button variant="contained" onClick={ handleSubmit(onSubmit) }> Submit </Button>
                     </div>

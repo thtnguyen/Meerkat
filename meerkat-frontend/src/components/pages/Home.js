@@ -16,9 +16,9 @@ export default class Home extends Component {
                     Create Room
                 </button>
                 <div>
-                <Link to="/register"> Register </Link>
+                    <Link to="/register"> Register </Link>
                     |
-                <Link to="/login"> Login </Link>
+                    <Link to="/login"> Login </Link>
                 </div>
             </div>
         )
