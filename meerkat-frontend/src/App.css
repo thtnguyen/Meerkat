@@ -37,3 +37,11 @@ li {
   align-items: center;
   list-style-type: none;
 }
+
+.navbar {
+  background: #07001d !important;
+}
+
+.navbar-div-background {
+  background:#000000
+}
