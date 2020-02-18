@@ -30,7 +30,13 @@ public class _UserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
     }
 
-    public User registerNewUser(UserDto userDto) {
+    public User registerNewUser(UserDto userDto) throws Exception {
+        //checks if username is already in DB
+        User queriedUser = userRepository.findByUsername(userDto.getUsername());
+        if(queriedUser != null){
+            throw new Exception("This username is already taken.");
+        }
+
         UUID id = UUID.randomUUID();
         String username = userDto.getUsername();
         String email = userDto.getEmail();

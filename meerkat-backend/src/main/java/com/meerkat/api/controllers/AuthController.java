@@ -35,8 +35,8 @@ public class AuthController {
 
     @PostMapping("/auth/register")
     public ResponseEntity register(@RequestBody UserDto newUserDto) throws Exception {
-        userRepository.save(userDetailsService.registerNewUser(newUserDto));
         try {
+            userRepository.save(userDetailsService.registerNewUser(newUserDto));
             return login(newUserDto);
         } catch(Exception e) {
             throw e;
