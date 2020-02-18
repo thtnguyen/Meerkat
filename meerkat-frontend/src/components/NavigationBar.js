@@ -14,11 +14,17 @@ export default class NavigationBar extends Component {
                         <Link to="/"><img src="https://mdbootstrap.com/img/logo/mdb-transparent.png" height="30" alt="mdb logo"></img></Link>
                     </Navbar.Brand>
                 </div>
-                <ul class="nav navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="/"> Home </a>
-                    </li>
-                </ul>
+                <div >
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/userpage">Profile</a>
+                        </li>
+                        <li class="nav-item" id="createRoom">
+                            <a class="nav-link" href="/create">Create Room</a>
+                        </li>
+                    </ul>
+                </div>
+                
             </nav>
         )
     }
