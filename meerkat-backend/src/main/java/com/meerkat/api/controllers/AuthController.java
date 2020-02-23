@@ -2,6 +2,7 @@ package com.meerkat.api.controllers;
 
 import com.meerkat.api.config.JwtUtil;
 import com.meerkat.api.dtos.AuthResponseDto;
+import com.meerkat.api.dtos.GenersDto;
 import com.meerkat.api.dtos.UserDto;
 import com.meerkat.api.repositories.UserRepository;
 import com.meerkat.api.services._UserDetailsService;
@@ -43,6 +44,14 @@ public class AuthController {
         }
     }
 
+    /*@PostMapping("/auth/register")
+    public ResponseEntity geners(@RequestBody GenersDto addGeners)throws Exception{
+        try{
+            userRepository.saveG(userDetailsService.usersGeners(addGeners));
+            return
+        }
+    }*/
+
     @PostMapping("/auth/login")
     public ResponseEntity login (@RequestBody UserDto userDto) throws Exception {
         try {
@@ -58,4 +67,9 @@ public class AuthController {
         return ResponseEntity.ok(new AuthResponseDto(jwt));
 
     }
+
+   /* @PostMapping("/auth/login")
+    public ResponseEntity loginPt2(@RequestBody GenersDto genersDto){
+        final UserDetails userGeners = userDetailsService.usersGeners()
+    }*/
 }
