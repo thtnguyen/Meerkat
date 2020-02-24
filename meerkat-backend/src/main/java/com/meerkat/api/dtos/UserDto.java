@@ -3,16 +3,16 @@ package com.meerkat.api.dtos;
 import java.util.List;
 
 public class UserDto {
-    private String username, email, password,fname,lname;
-    private String geners;
+    private String username, email, password,firstname,lastname,genre;
+
 
 
     public String getUsername() { return this.username; }
     public String getEmail() { return this.email; }
     public String getPassword() { return this.password; }
-    public String getFname() {return this.fname; }
-    public String getLname() {return this.lname; }
-    public String getGeners() {return this.geners; }
+    public String getFirstname() {return this.firstname; }
+    public String getLastname() {return this.lastname; }
+    public String getGenre() {return this.genre; }
 
 
 
@@ -25,8 +25,8 @@ public class UserDto {
     public void setPassword(String password){
         this.password = password;
     }
-    public void setFname(String fname){ this.fname = fname; }
-    public void setLname(String lname){ this.lname = lname; }
-    public void setGeners(String geners){ this.geners = geners; }
+    public void setFirstname(String firstname){ this.firstname = firstname; }
+    public void setLastname(String lastname){ this.lastname = lastname; }
+    public void setGenre(String genre){ this.genre = genre; }
 
 }

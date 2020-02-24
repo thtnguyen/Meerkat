@@ -10,17 +10,17 @@ import java.util.UUID;
 public class User {
     @Id
     private UUID id;
-    private String username,fname,lname,email, password;
-    private String geners;
+    private String username,firstname,lastname,email, password;
+    private String genre;
 
-    public User(UUID id, String username, String fname,String lname,String email, String password,String geners) {
+    public User(UUID id, String username, String firstname,String lastname,String email, String password,String genre) {
         this.id = id;
         this.username = username;
-        this.fname = fname;
-        this.lname = lname;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.email = email;
         this.password = password;
-        this.geners = geners;
+        this.genre = genre;
     }
 
     /*public Geners(UUID id, List<String> geners){
@@ -32,17 +32,17 @@ public class User {
     public String getUsername() { return this.username; }
     public String getEmail() { return this.email; }
     public String getPassword() { return this.password; }
-    public String getFname(){return this.fname; }
-    public String getLname(){return this.lname; }
-    public String getGeners() { return this.geners; }
+    public String getFirstname(){return this.firstname; }
+    public String getLastname(){return this.lastname; }
+    public String getGenre() { return this.genre; }
 
     public void setId(UUID id) { this.id = id; }
     public void setUsername(String username) { this.username = username; }
     public void setEmail(String email) { this.email = email; }
     public void setPassword(String password) { this.password = password; }
-    public void setFname(String fname){this.fname = fname;}
-    public void setLname(String lname){this.lname = lname; }
-    public void setGeners(String geners){this.geners=geners; }
+    public void setFirstname(String firstname){this.firstname = firstname;}
+    public void setLastname(String lastname){this.lastname = lastname; }
+    public void setGeners(String genre){this.genre=genre; }
 
 
 }

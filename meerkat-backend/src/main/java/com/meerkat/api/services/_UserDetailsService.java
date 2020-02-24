@@ -1,10 +1,7 @@
 package com.meerkat.api.services;
 
 import com.meerkat.api.dtos.UserDto;
-import com.meerkat.api.models.Geners;
 import com.meerkat.api.models.User;
-import com.meerkat.api.dtos.GenersDto;
-import com.meerkat.api.models.Geners;
 import com.meerkat.api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +10,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -43,13 +39,13 @@ public class _UserDetailsService implements UserDetailsService {
 
         UUID id = UUID.randomUUID();
         String username = userDto.getUsername();
-        String fname = userDto.getFname();
-        String lname = userDto.getLname();
+        String firstname = userDto.getFirstname();
+        String lastname = userDto.getLastname();
         String email = userDto.getEmail();
         String password = userDto.getPassword();
-        String geners = userDto.getGeners();
+        String genre = userDto.getGenre();
 
-        return new User(id, username,fname,lname,email, password,geners);
+        return new User(id, username,firstname,lastname,email, password,genre);
     }
 
    /* public Geners usersGeners(GenersDto genersDto)

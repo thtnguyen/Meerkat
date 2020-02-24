@@ -2,7 +2,6 @@ package com.meerkat.api.controllers;
 
 import com.meerkat.api.config.JwtUtil;
 import com.meerkat.api.dtos.AuthResponseDto;
-import com.meerkat.api.dtos.GenersDto;
 import com.meerkat.api.dtos.UserDto;
 import com.meerkat.api.repositories.UserRepository;
 import com.meerkat.api.services._UserDetailsService;
