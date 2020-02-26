@@ -1,10 +1,11 @@
 package com.meerkat.api.models;
 
 
-public class StreamStartMessage {
-    private String streamId, messageType = "stream start";
-    public StreamStartMessage(String streamId){
+public class StreamMessage {
+    private String streamId, messageType;
+    public StreamMessage(String streamId, String messageType){
         this.streamId = streamId;
+        this.messageType = messageType;
     }
 
     public String getStreamId() { return this.streamId; }
