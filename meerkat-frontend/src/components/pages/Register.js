@@ -1,31 +1,34 @@
 import React from 'react';
-import { TextField, Button,Input } from '@material-ui/core/'
+import { TextField, Button,Input } from '@material-ui/core/';
 import { useForm } from 'react-hook-form';
-
+import { useHistory } from 'react-router-dom';
 
 export default function Register(){
+    //variable used to redirect users after registration 
+    const history = useHistory();
+
     const {register, handleSubmit, errors} = useForm();
-        
-    const onSubmit = (data) => {
-            fetch('https://webhook.site/67b9626f-2c2c-4cfc-8b98-d4813d414d42', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers:{
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('Success:', data)
-            })
-            .catch((error) => {
-                console.error('Error', error);
-            })
+    
+    const onSubmit = (data, error, props) => {
+        //The first url is used to bypass CORS error
+        fetch('https://cors-anywhere.herokuapp.com/'+'https://webhook.site/42fb35aa-a83e-4ee2-be2a-6a20ba2dfc7a', {
+            method: 'POST',
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(function(response) {
+            if(response.ok){
+                history.push('/');
+            }
+        })
+        .catch((error) => {
+            console.error('Error', error);
+        })
     };
 
-
+    
         return (
             <div>
                 <h1> Register Page </h1>
@@ -41,22 +44,21 @@ export default function Register(){
                                 <input type="text" name="lName" placeholder="Last Name" ref={ register({ required: true, minLength: {value: 2, message: "Name must be at least 2 characters"} }) }/> 
                                 {errors.lName && <p> { errors.lName.message } </p>}
                             </div>
-                            {/* <div className="col">  
+                            <div className="col">  
                                 <input type="text" name="uName" placeholder="Username" ref={ register }/> 
                             </div>
                             <div className="col">  
                                 <input type="password" name="password" placeholder="Password" ref={ register({ required: "Please Enter password", minLength: {value: 8, message:"Password too short" }}) }/> 
-                                {errors.password && <p> {errors.password.message} </p>}
-                            </div> */}
-                            <div className="row">
-                                <div className="col">
-                                    <input type="email" name="emailAddress" placeholder="Email Address"/>
-                                </div>
+                                {errors.password && <p> { errors.password.message } </p>}
+                            </div>
+                            <div className="col">
+                                <input type="email" name="emailAddress" placeholder="Email Address" ref={ register({required: 'Required',pattern: {value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, message: "invalid email address"}}) }/>
+                                {errors.emailAddress && <p> { errors.emailAddress.message } </p>}
                             </div>
                         </div>
                     </div>
                     <div>
-                        <Button variant="contained" onClick={ handleSubmit(onSubmit()) }> Submit </Button>
+                        <Button variant="contained" onClick={ handleSubmit(onSubmit) }> Submit </Button>
                     </div>
                 </form>
 
