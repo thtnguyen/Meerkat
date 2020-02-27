@@ -20,6 +20,7 @@ export default function Register(){
             body: JSON.stringify(data)
         }).then(function(response) {
             if(response.ok){
+                alert("Thank you for registering")
                 history.push('/');
             }
         })
