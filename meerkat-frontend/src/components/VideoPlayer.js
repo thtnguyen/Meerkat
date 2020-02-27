@@ -17,6 +17,12 @@ export default class VideoPlayer extends React.Component {
     }
   }
 
+  async componentWillReceiveProps(nextProps) {
+    await new Promise(r => setTimeout(r, 10000));
+    console.log(nextProps)
+    this.player.src(nextProps.sources);
+  }
+
   // wrap the player in a div with a `data-vjs-player` attribute
   // so videojs won't create additional wrapper in the DOM
   // see https://github.com/videojs/video.js/pull/3856

@@ -11,7 +11,10 @@ export default class Room extends Component {
             videoJsOptions: {
                 autoplay: true,
                 controls: true,
-                sources: null,
+                sources: [{
+                    src: '',
+                    type: 'application/x-mpegURL'
+                }],
                 poster: "//vjs.zencdn.net/v/oceans.png"
             },
             stompClient: null
@@ -19,23 +22,23 @@ export default class Room extends Component {
         this.onStreamClick = this.onStreamClick.bind(this);
         this.onStopClick = this.onStopClick.bind(this);
         this.setClientVidSrc = this.setClientVidSrc.bind(this);
+        this.handleSocketMessages = this.handleSocketMessages.bind(this);
+        this.handleAdaptorInfo = this.handleAdaptorInfo.bind(this);
+        this.handleSocketConnect = this.handleSocketConnect.bind(this);
+    }
+
+    handleSocketConnect(frame) {
+        console.log('Connected: ', frame);
+        this.state.stompClient.subscribe('/topic/rooms/stream1', this.handleSocketMessages);
     }
 
     componentDidMount(){
-
         //setting up the socket for stream info signalling
-        const stompClient = Stomp.over(new window.SockJS('/meerkat-websocket'));
-        stompClient.connect({}, function(frame) {
-            console.log('Connected: ', frame);
-            stompClient.subscribe('/topics/rooms/stream1', function(content) {
-                const message = JSON.parse(content.body);
-                if(message.messageType == 'start stream') {
-                    this.setClientVidSrc(message.streamId);
-                } else if(message.messageType == 'stop stream') {
-                    this.setClientVidSrc(null);
-                }
-            });
-        });
+        var socket = new window.SockJS('http://localhost:8080/meerkat-websocket');
+        socket.withCredentials = true;
+        const stompClient = Stomp.over(socket);
+        this.setState({ stompClient })
+        stompClient.connect({}, this.handleSocketConnect);
         
         //setting up adaptor for screen recording and publishing
         var publishAdaptor = new window.WebRTCAdaptor({
@@ -51,51 +54,61 @@ export default class Room extends Component {
             },
             localVideoId: 'stream',
             debug: true,
-            callback: function(info, obj) {
-                if (info == 'initialized') {
-                    console.log('initialized');
-                    //disable stream publish button, enable stop stream publish
-                } else if (info == 'publish_started') {
-                    console.log('publish started');
-                } else if (info == 'publish_finished') {
-                    //send 'stop stream' message over socket
-                } 
-            },
+            callback: this.handleAdaptorInfo,
             callbackError: function(error, message) {
-                console.log('error callback: ' + JSON.stringify(error));
+                var errorMessage = JSON.stringify(error);
                 if (typeof message != 'undefined') {
                     errorMessage = message;
                 }
-                var errorMessage = JSON.stringify(error);
+                console.log('error callback: ' + JSON.stringify(error));
+                console.log(errorMessage);
                 alert(errorMessage);
             }
         });
+        // console.log(publishAdaptor)
+        this.setState({ publishAdaptor });
+    }
 
-        this.setState({ publishAdaptor, stompClient });
+    handleSocketMessages(content){
+        const message = JSON.parse(content.body);
+        if(message.messageType == 'start stream') {
+            this.setClientVidSrc(message.streamId);
+        } else if(message.messageType == 'stop stream') {
+            this.setClientVidSrc(null);
+        }
+        // console.log(message);
+    }
+
+    handleAdaptorInfo(info, obj){
+        if (info == 'initialized') {
+            console.log('initialized');
+        } else if (info == 'publish_started') {
+            this.state.stompClient.send('/streams/start/stream1', {}, JSON.stringify({'streamId': 'stream1'}));
+        } else if (info == 'publish_finished') {
+            this.state.stompClient.send('/streams/stop/stream1', {}, JSON.stringify({'streamId': 'stream1'}));
+        } 
     }
 
     setClientVidSrc(streamId) {
         var videoJsOptions = this.state.videoJsOptions;
-        const srcUrl = null;
-        if(streamId) {
+        if(streamId != null) {
             videoJsOptions.sources = [{
                 src: `http://localhost:5080/WebRTCApp/streams/${streamId}.m3u8`,
                 type: 'application/x-mpegURL'
             }];
         } else {
-            videoJsOptions.sources = null;
+            videoJsOptions.sources = [{
+                src: '',
+                type: 'application/x-mpegURL'
+            }];
         }
-        
         this.setState({ videoJsOptions });
     }
 
-    async onStreamClick(event) {
+    onStreamClick(event) {
         try {
-            await this.state.publishAdaptor.publish('stream1');
-            this.state.publishAdaptor.switchDesktopCapture('stream1');
-            
-            this.state.stompClient.send('/streams/start', {}, JSON.stringify({'streamId': 'stream1'}));
-
+            this.state.publishAdaptor.publish('stream1');
+            // this.state.stompClient.send('/streams/start/stream1', {}, JSON.stringify({'streamId': 'stream1'}));
         } catch(err) {
             console.log(err);
         }
@@ -103,7 +116,7 @@ export default class Room extends Component {
 
     onStopClick(event){
         this.state.publishAdaptor.stop('stream1');
-        this.state.stompClient.send('/streams/stop', {}, JSON.stringify({'streamId': 'stream1'}));
+        // this.state.stompClient.send('/streams/stop/stream1', {}, JSON.stringify({'streamId': 'stream1'}));
     }
 
     render(){

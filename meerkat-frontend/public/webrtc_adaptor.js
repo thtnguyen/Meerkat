@@ -133,8 +133,8 @@ function WebRTCAdaptor(initialValues)
 
 	this.setCameraScreen = function(stream,audioStream) {
 
-		navigator.mediaDevices.getUserMedia({video: true, audio: false})
-		.then(function(cameraStream) {
+		// navigator.mediaDevices.getUserMedia({video: true, audio: false})
+		// .then(function(cameraStream) {
 
 			//create a canvas element
 			var canvas = document.createElement("canvas");
@@ -149,8 +149,8 @@ function WebRTCAdaptor(initialValues)
 			//create video element for camera
 			var cameraVideo = document.createElement('video');
 			//TODO: check audio track
-			cameraVideo.srcObject = cameraStream;
-			cameraVideo.play();
+			// cameraVideo.srcObject = cameraStream;
+			// cameraVideo.play();
 			var canvasStream = canvas.captureStream(15);
 			canvasStream.addTrack(audioStream.getAudioTracks()[0]);
 			//call gotStream
@@ -163,26 +163,26 @@ function WebRTCAdaptor(initialValues)
 				canvas.height = screenVideo.videoHeight;
 				canvasContext.drawImage(screenVideo, 0, 0, canvas.width, canvas.height);
 
-				var cameraWidth = screenVideo.videoWidth * (thiz.camera_percent/100);
-				var cameraHeight = (cameraVideo.videoHeight/cameraVideo.videoWidth)*cameraWidth
+				// var cameraWidth = screenVideo.videoWidth * (thiz.camera_percent/100);
+				// var cameraHeight = (cameraVideo.videoHeight/cameraVideo.videoWidth)*cameraWidth
 
-				var positionX = (canvas.width - cameraWidth) - thiz.camera_margin;
-				var positionY;
+				// var positionX = (canvas.width - cameraWidth) - thiz.camera_margin;
+				// var positionY;
 
-				if (thiz.camera_location == "top") {
-					positionY = thiz.camera_margin;
-				}
-				else { //if not top, make it bottom
-					//draw camera on right bottom corner
-					positionY = (canvas.height - cameraHeight) - thiz.camera_margin;
-				}
-				canvasContext.drawImage(cameraVideo, positionX, positionY, cameraWidth, cameraHeight);
+				// if (thiz.camera_location == "top") {
+				// 	positionY = thiz.camera_margin;
+				// }
+				// else { //if not top, make it bottom
+				// 	//draw camera on right bottom corner
+				// 	positionY = (canvas.height - cameraHeight) - thiz.camera_margin;
+				// }
+				// canvasContext.drawImage(cameraVideo, positionX, positionY, cameraWidth, cameraHeight);
 			}, 66);
 
-		})
-		.catch(function(error) {
-			thiz.callbackError(error.name, error.message);
-		});
+		// })
+		// .catch(function(error) {
+		// 	thiz.callbackError(error.name, error.message);
+		// });
 	}
 
 	this.getUserMediaDetail = function (mediaConstraints,audioConstraint,stream) {
@@ -208,6 +208,7 @@ function WebRTCAdaptor(initialValues)
 				if (thiz.mediaConstraints.video == "screen+camera" )
 				{
 					thiz.setCameraScreen(stream,audioStream);
+					
 				}
 				else {
 
@@ -239,10 +240,48 @@ function WebRTCAdaptor(initialValues)
 		// Check Media Constraint video value screen or screen + camera
 		if(mediaConstraints.video == "screen+camera" || mediaConstraints.video == "screen"){
 
-			navigator.mediaDevices.getDisplayMedia(mediaConstraints)
+			navigator.mediaDevices.getDisplayMedia({video: true, audio: true})
 			.then(function(stream){
 
 				thiz.getUserMediaDetail(mediaConstraints,audioConstraint,stream);
+
+				// var audioTrack = stream.getAudioTracks();
+				// if (audioTrack.length > 0) {
+				// 	stream.removeTrack(audioTrack[0]);
+				// }
+
+				// //add callback if desktop is sharing
+				// stream.getVideoTracks()[0].onended = function(event) {
+				// 	thiz.callback("screen_share_stopped");
+				// 	thiz.switchVideoSource(streamId, mediaConstraints, null);
+				// }
+
+				// //create a canvas element
+				// var canvas = document.createElement("canvas");
+				// var canvasContext = canvas.getContext("2d");
+
+				// //create video element for screen
+				// //var screenVideo = document.getElementById('sourceVideo');
+				// var screenVideo = document.createElement('video');
+				// //TODO: check audio track
+				// console.log(stream.getAudioTracks());
+				// console.log(stream.getVideoTracks());
+				// screenVideo.srcObject = stream;
+				// screenVideo.play();
+
+				// var canvasStream = canvas.captureStream(15);
+				// // canvasStream.addTrack(stream.getAudioTracks()[0]);
+				
+				// //call gotStream
+				// thiz.gotStream(canvasStream);
+
+				// //update the canvas
+				// setInterval(function(){
+				// 	//draw screen to canvas
+				// 	canvas.width = screenVideo.videoWidth;
+				// 	canvas.height = screenVideo.videoHeight;
+				// 	canvasContext.drawImage(screenVideo, 0, 0, canvas.width, canvas.height);
+				// }, 66);
 
 			})
 			.catch(function(error) {
@@ -534,7 +573,11 @@ function WebRTCAdaptor(initialValues)
 
 	this.switchDesktopCapture = function(streamId) {
 
-		mediaConstraints.video = "screen";
+		var mediaConstraints = {
+			video: 'screen',
+			audio: true
+		};
+		// mediaConstraints.video = "screen";
 
 		var audioConstraint = false;
 		if (typeof mediaConstraints.audio != "undefined" && mediaConstraints.audio != false) {
@@ -542,7 +585,7 @@ function WebRTCAdaptor(initialValues)
 		}
 
 
-		thiz.getUserMedia(mediaConstraints, audioConstraint);
+		thiz.getUserMedia(mediaConstraints, audioConstraint, streamId);
 
 	}
 

@@ -13,12 +13,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker("/topic");
-//        config.setApplicationDestinationPrefixes("");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/meerkat-websocket").withSockJS();
+        registry.addEndpoint("/meerkat-websocket").setAllowedOrigins("http://localhost:3000").withSockJS();
     }
-
 }
