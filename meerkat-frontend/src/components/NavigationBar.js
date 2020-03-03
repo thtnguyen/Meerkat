@@ -22,6 +22,12 @@ export default class NavigationBar extends Component {
                         <li class="nav-item" id="createRoom">
                             <a class="nav-link" href="/create">Create Room</a>
                         </li>
+                       
+                    <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/Register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    
+                    </ul>
                     </ul>
                 </div>
                 
