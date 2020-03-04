@@ -1,5 +1,5 @@
 
-.h1 {
+h1 {
     font-family: Arial, Helvetica, sans-serif;
     font-style: normal;
     text-shadow: 2px 2px;
@@ -15,7 +15,7 @@
   font-size: 16px;
   }
 
-  .footer {
+  footer{
     background-color: #07001d;
     color: white;
     padding: 15px;
