@@ -9,11 +9,14 @@ export default class Home extends Component {
         return (
             <div>
                 <div id="mySidenav" class="sidenav">
-            <a href="/create" id="create">Create Rooms</a>
-            <a href="/View" id="view">View Rooms</a>
-            <a href="#" id="about">About Us</a>
-            <a href="#" id="nothing">XYzhere</a>
-            </div>
+                    <a href="/create" id="create">Create Rooms</a>
+                    <a href="/View" id="view">View Rooms</a>
+                    <a href="#" id="about">About Us</a>
+                    <a href="#" id="nothing">XYzhere</a>
+                </div>
+                <footer class="container-fluid text-center">
+                    <p>All rights reserved || Meerkat</p>
+                </footer>
             </div>
         )
     }
