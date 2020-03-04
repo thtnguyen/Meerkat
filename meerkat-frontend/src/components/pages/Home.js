@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-
+import './home.css';
 export default class Home extends Component {
     clicked(){
         console.log("I have been clicked");
@@ -8,18 +8,12 @@ export default class Home extends Component {
     render() {
         return (
             <div>
-                <h1>
-                    Home Page
-                </h1>
-
-                <button onClick={event => window.location.href = '/create'} id="Button">
-                    Create Room
-                </button>
-                <div>
-                    <Link to="/register"> Register </Link>
-                    |
-                    <Link to="/login"> Login </Link>
-                </div>
+                <div id="mySidenav" class="sidenav">
+            <a href="/create" id="create">Create Rooms</a>
+            <a href="/View" id="view">View Rooms</a>
+            <a href="#" id="about">About Us</a>
+            <a href="#" id="nothing">XYzhere</a>
+            </div>
             </div>
         )
     }
