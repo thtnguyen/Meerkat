@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Create() {
+export default function View() {
         return (
             <div>
-                <h1> Room Creation </h1>
+                <h1> View Rooms </h1>
             </div>
         )
 }
