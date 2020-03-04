@@ -1,4 +1,6 @@
-
+body{
+  background-color: rgb(90, 85, 110);
+}
 h1 {
     font-family: Arial, Helvetica, sans-serif;
     font-style: normal;
@@ -18,7 +20,12 @@ h1 {
   footer{
     background-color: #07001d;
     color: white;
-    padding: 15px;
+    padding:15px;
+    box-shadow: rgb(228, 224, 224);
+    position:fixed;
+    bottom:0;
+    right:0;
+    left:0;
   }
 
   #mySidenav a {
@@ -37,23 +44,23 @@ h1 {
     left: 0; 
   }
   
-  #create {
+  #profile {
     top: 80px;
-    background-color: #4CAF50;
+    background-color:#2196F3;
   }
   
-  #view {
+  #create {
     top: 140px;
-    background-color: #2196F3; /* Blue */
+    background-color:#4CAF50;
   }
   
-  #about{
+  #view{
     top: 200px;
-    background-color: #f44336; /* Red */
+    background-color: #f44336; 
   }
   
-  #nothing {
+  #about {
     top: 260px;
-    background-color: #555 /* Light Black */
+    background-color: rgb(58, 57, 57) /* Light Black */
   }
   
