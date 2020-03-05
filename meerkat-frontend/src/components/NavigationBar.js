@@ -15,17 +15,11 @@ export default class NavigationBar extends Component {
                     </Navbar.Brand>
                 </div>
                 <div >
-                    <ul class="nav nav-pills">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/userpage">Profile</a>
-                        </li>
-                        <li class="nav-item" id="createRoom">
-                            <a class="nav-link" href="/create">Create Room</a>
-                        </li>
-                       
+                    
                     <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/Register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <ul class="nav nav-pills">
+                    <li class="nav-item"><a href="/Register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li class="nav-item"><a href="/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     
                     </ul>
                     </ul>
