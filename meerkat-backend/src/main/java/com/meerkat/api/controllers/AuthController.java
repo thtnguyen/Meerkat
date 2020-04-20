@@ -43,14 +43,6 @@ public class AuthController {
         }
     }
 
-    /*@PostMapping("/auth/register")
-    public ResponseEntity geners(@RequestBody GenersDto addGeners)throws Exception{
-        try{
-            userRepository.saveG(userDetailsService.usersGeners(addGeners));
-            return
-        }
-    }*/
-
     @PostMapping("/auth/login")
     public ResponseEntity login (@RequestBody UserDto userDto) throws Exception {
         try {
@@ -66,9 +58,4 @@ public class AuthController {
         return ResponseEntity.ok(new AuthResponseDto(jwt));
 
     }
-
-   /* @PostMapping("/auth/login")
-    public ResponseEntity loginPt2(@RequestBody GenersDto genersDto){
-        final UserDetails userGeners = userDetailsService.usersGeners()
-    }*/
 }

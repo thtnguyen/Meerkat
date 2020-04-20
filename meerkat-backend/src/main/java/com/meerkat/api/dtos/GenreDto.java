@@ -1,15 +1,20 @@
 package com.meerkat.api.dtos;
 
-import java.util.List;
+import java.util.UUID;
 
 public class GenreDto {
+    private UUID genreId;
+    private String genreName;
 
-    private List<String> genre;
-
-    public List<String> getGenre() { return this.genre; }
-
-    public void setUsername(List<String> gernes){
-        this.genre = genre;
+    public GenreDto(UUID genreId, String genreName) {
+        this.genreId = genreId;
+        this.genreName = genreName;
     }
+
+    public UUID getGenreId() { return this.genreId; }
+    public String getGenreName() { return this.genreName; }
+
+    public void setGenreId(UUID genreId) { this.genreId = genreId; }
+    public void setGenreName(String genreName) { this.genreName = genreName; }
 
 }

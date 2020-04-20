@@ -1,6 +1,5 @@
 package com.meerkat.api.repositories;
 
-import com.meerkat.api.models.Geners;
 import com.meerkat.api.models.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -13,7 +12,4 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     @Override
     <S extends User> S save(S entity);
-
-   /* @Override
-    <G extends Geners> G saveG(G entity);*/
 }
